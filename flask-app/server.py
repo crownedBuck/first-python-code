@@ -66,7 +66,7 @@ def get_info():
     # The next line is an explanation of what this function does.
     """Display dino creation form."""
 
-    return "<h1>Read the instructions</h1>"
+    return render_template("form.html")
 
 
 ##### WITHOUT RENDER_TEMPLATE #####
@@ -140,17 +140,22 @@ def get_info():
 @app.route('/dino')
 def display_dino():
     """Display the dino."""
+    image = request.args.get("dino-pic")
+    dino_name = request.args.get("dino-name")
+    age = request.args.get("age")
 
     return f"""
     <!doctype html>
     <html>
       <head>
-        <title>Your Title Here</title>
+        <title>{dino_name} - The Dino</title>
         <link rel="stylesheet" href="/static/main.css">
       </head>
       <body>
         <main>
-            <h1>Your HTML Here</h1>
+            <img src="/static/images/{image}" alt="Dino">
+            <h1>{dino_name}</h1>
+            <h3>Age: {age}<h3>
         </main>
       </body>
     </html>
@@ -168,6 +173,6 @@ def static_dir(path):
 if __name__ == '__main__':
     # debug=True gives us error messages in the browser and also "reloads"
     # our web app if we change the code.
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0", port=8080)
 
 # ALL DINOSAUR IMAGES ARE FROM Darius Dan on Flaticon
